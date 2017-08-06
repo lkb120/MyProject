@@ -15,7 +15,7 @@ public class Myutils {
 	private static ThreadLocal<SqlSession> threadLocal = new ThreadLocal<SqlSession>();
 	private static SqlSessionFactory sqlSessionFactory;
 	/**
-	 * ¼ÓÔØÎ»ÓÚsrc/mybatis.xmlÅäÖÃÎÄ¼þ
+	 * ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½src/mybatis.xmlï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	 */
 	static{
 		try {
@@ -27,45 +27,44 @@ public class Myutils {
 		}
 	}
 	/**
-	 * ½ûÖ¹Íâ½çÍ¨¹ýnew·½·¨´´½¨ 
+	 * ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Í¨ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 */
 	private Myutils(){}
 	/**
-	 * »ñÈ¡SqlSession
+	 * ï¿½ï¿½È¡SqlSession
 	 */
 	public static SqlSession getSqlSession(){
-		//´Óµ±Ç°Ïß³ÌÖÐ»ñÈ¡SqlSession¶ÔÏó
+		//ï¿½Óµï¿½Ç°ï¿½ß³ï¿½ï¿½Ð»ï¿½È¡SqlSessionï¿½ï¿½ï¿½ï¿½
 		SqlSession sqlSession = threadLocal.get();
-		//Èç¹ûSqlSession¶ÔÏóÎª¿Õ
+		//ï¿½ï¿½ï¿½SqlSessionï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 		if(sqlSession == null){
-			//ÔÚSqlSessionFactory·Ç¿ÕµÄÇé¿öÏÂ£¬»ñÈ¡SqlSession¶ÔÏó
+			//ï¿½ï¿½SqlSessionFactoryï¿½Ç¿Õµï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½È¡SqlSessionï¿½ï¿½ï¿½ï¿½
 			sqlSession = sqlSessionFactory.openSession();
-			//½«SqlSession¶ÔÏóÓëµ±Ç°Ïß³Ì°ó¶¨ÔÚÒ»Æð
+			//ï¿½ï¿½SqlSessionï¿½ï¿½ï¿½ï¿½ï¿½ëµ±Ç°ï¿½ß³Ì°ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 			threadLocal.set(sqlSession);
 		}
-		//·µ»ØSqlSession¶ÔÏó
 		return sqlSession;
 	}
 	/**
-	 * ¹Ø±ÕSqlSessionÓëµ±Ç°Ïß³Ì·Ö¿ª
+	 * ï¿½Ø±ï¿½SqlSessionï¿½ëµ±Ç°ï¿½ß³Ì·Ö¿ï¿½
 	 */
 	public static void closeSqlSession(){
-		//´Óµ±Ç°Ïß³ÌÖÐ»ñÈ¡SqlSession¶ÔÏó
+		//ï¿½Óµï¿½Ç°ï¿½ß³ï¿½ï¿½Ð»ï¿½È¡SqlSessionï¿½ï¿½ï¿½ï¿½
 		SqlSession sqlSession = threadLocal.get();
-		//Èç¹ûSqlSession¶ÔÏó·Ç¿Õ
+		//ï¿½ï¿½ï¿½SqlSessionï¿½ï¿½ï¿½ï¿½Ç¿ï¿½
 		if(sqlSession != null){
-			//¹Ø±ÕSqlSession¶ÔÏó
+			//ï¿½Ø±ï¿½SqlSessionï¿½ï¿½ï¿½ï¿½
 			sqlSession.close();
-			//·Ö¿ªµ±Ç°Ïß³ÌÓëSqlSession¶ÔÏóµÄ¹ØÏµ£¬Ä¿µÄÊÇÈÃGC¾¡Ôç»ØÊÕ
+			//ï¿½Ö¿ï¿½ï¿½ï¿½Ç°ï¿½ß³ï¿½ï¿½ï¿½SqlSessionï¿½ï¿½ï¿½ï¿½Ä¹ï¿½Ïµï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			threadLocal.remove();
 		}
 	}
 	
 	/**
-	 * ²âÊÔ
+	 * ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static void main(String[] args) {
-		String sql="insert into user(id,u_name,u_password) values (1,'Á÷ÐÐ','1234')";
+		String sql="insert into user(id,u_name,u_password) values (1,'ï¿½ï¿½ï¿½ï¿½','1234')";
 		Myutils.getSqlSession().insert(sql, User.class);
 		
 	}
