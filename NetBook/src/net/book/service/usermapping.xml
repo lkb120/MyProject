@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace名称空间，必须唯一 -->
+<mapper namespace="UserNameSpace">
+	
+	<resultMap type="net.book.entity.User" id="usermap">
+		<id property="id" column="id"/>
+		<result property="name" column="u_name"/>
+		<result property="password" column="u_password"/>
+	</resultMap>
+	<!-- 设置主键自增长 -->
+	<insert id="add" parameterType="net.book.entity.User" useGeneratedKeys="true"
+    keyProperty="id">
+	  insert into user(u_name,u_password) values 
+      (#{name}, #{password})
+	</insert>
+	<select id="findAll" resultMap="usermap">
+	select id,u_name,u_password from user
+	</select>
+	<select id="getUserId" resultMap="usermap">
+	select id,u_name,u_password from user where u_name=#{name}
+	</select>
+	<delete id="deleteUser" parameterType="net.book.entity.User">
+	 delete from user where u_name=#{name}
+	</delete>
+	
+</mapper>

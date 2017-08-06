@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace名称空间，必须唯一 -->
+<mapper namespace="OrderNameSpace">
+	
+	<resultMap type="net.book.entity.Order" id="ordermap">
+		<id property="order_id" column="order_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_name" column="user_name"/>
+		<result property="book_isbn" column="book_isbn"/>
+		<result property="book_name" column="book_name"/>
+		<result property="accout" column="book_account"/>
+		<result property="price" column="order_price"/>
+		<result property="unitPrice" column="unit_price"/>
+	</resultMap>
+	<resultMap type="net.book.entity.Address" id="addressMap">
+	    <id property="userName" column="user_name"/>
+	    <result property="render" column="render"/>
+	    <result property="address" column="address"/>
+	    <result property="postcode" column="post_code"/>
+	    <result property="phonenum" column="phone"/>
+	</resultMap>
+	
+	<resultMap type="net.book.entity.UserOrder" id="userorderMap">
+	<id property="userName" column="user_name"/>
+	    <result property="account" column="account"/>
+	</resultMap>
+	
+	<insert id="addOrder" parameterType="net.book.entity.Order" useGeneratedKeys="true"
+    keyProperty="order_id">
+	 insert into orders(user_id,user_name,book_isbn,book_name,book_account,order_price,unit_price) 
+	 values (#{user_id},#{user_name},#{book_isbn},#{book_name},#{accout},#{price},#{unitPrice})
+	</insert>
+	<select id="getMyOrder" resultMap="ordermap">
+	 select order_id,user_id,user_name,book_isbn,book_name,book_account,order_price,unit_price 
+	 from orders where user_name=#{user_name}
+	</select>
+	<update id="updateOrder" parameterType="net.book.entity.Order">
+	 update orders set book_account=#{accout},order_price=#{price} where book_isbn=#{book_isbn} and user_name=#{user_name}
+	</update>
+	<delete id="deleteOrder" parameterType="net.book.entity.Order">
+	  delete from orders where user_name=#{user_name} and order_id=#{order_id}
+	</delete>
+	<insert id="saveAddress" parameterType="net.book.entity.Address">
+	  insert into address(user_name,render,address,post_code,phone) values 
+	  (#{userName},#{render},#{address},#{postcode},#{phonenum})
+	</insert>
+	<select id="getAddress" resultMap="addressMap">
+	select user_name,render,address,post_code,phone from address where user_name=#{userName}
+	</select>
+	<select id="getUserOrders" resultMap="ordermap">
+	SELECT order_id,user_id,user_name,book_isbn,book_name,book_account,order_price,unit_price FROM orders
+	</select>
+	<select id="getUserOrder" resultMap="userorderMap">
+	SELECT user_name,COUNT(user_name) FROM orders GROUP BY user_name
+	</select>
+</mapper>

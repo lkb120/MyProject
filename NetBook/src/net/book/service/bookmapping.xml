@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace名称空间，必须唯一 -->
+<mapper namespace="BookNameSpace">
+	
+	<resultMap type="net.book.entity.Book" id="bookmap">
+		<id property="isbn" column="isbn"/>
+		<result property="name" column="name"/>
+		<result property="author" column="author"/>
+		<result property="date" column="pub_date"/>
+		<result property="pubHouse" column="pub_house"/>
+		<result property="price" column="price"/>
+		<result property="comment" column="book_comment"/>
+		<result property="account" column="account"/>
+	</resultMap>
+	
+	<select id="getAllBook" resultMap="bookmap">
+	select isbn,name,author,pub_date,pub_house,price,book_comment,account from book limit 8 
+	</select>
+	<select id="getAllBooks" resultMap="bookmap">
+	select isbn,name,author,pub_date,pub_house,price,book_comment,account from book 
+	</select>
+	<insert id="addBook" parameterType="net.book.entity.Book">
+	insert into book(isbn,name,author,price,account)  
+	values (#{isbn},#{name},#{author},#{price},#{account})
+	</insert>
+	<delete id="deleteBook" parameterType="net.book.entity.Book">
+	 delete from book where isbn=#{isbn}
+	</delete>
+	<update id="changeAccout" parameterType="net.book.entity.Book">
+	UPDATE book SET account=account-#{account} WHERE isbn=#{isbn}
+	</update>
+	
+	
+	
+</mapper>
